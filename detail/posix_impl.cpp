@@ -1,17 +1,9 @@
 // posix_impl.cpp
 // Author: katahiromz
 // License: MIT
-#include <stddef.h>
-#include <vector>
-#include "pstdint.h"
-#include "../TextFiler.h"
+#include "posix_impl.h"
 
 namespace khmz {
-
-bool is_system_little_endian() {
-    uint16_t v = 1;
-    return (*(uint8_t *)&v) == 1;
-}
 
 /* UTF-8 validation for POSIX */
 bool utf8_validate(const char *ptr, size_t size) {
