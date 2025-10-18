@@ -29,20 +29,34 @@ void TextFiler::clear() {
     m_pimpl->m_text.clear();
 }
 
-bool TextFiler::load(const tchar_t *filePath) {
+bool TextFiler::load(const tchar_t *filePath, ENCODING& enc) {
     binary_t bin;
     if (!m_pimpl->load_raw(filePath, bin)) {
         text().clear();
         return false;
     }
-    return m_pimpl->_bin_to_text(bin, text(), encoding());
+    if (!m_pimpl->_bin_to_text(bin, text(), enc))
+        return false;
+    enc = encoding();
+    return true;
 }
 
-bool TextFiler::save(const tchar_t *filePath) const {
+bool TextFiler::save(const tchar_t *filePath, ENCODING enc) {
     binary_t bin;
-    if (!m_pimpl->_text_to_bin(text(), bin, encoding()))
+    if (!m_pimpl->_text_to_bin(text(), bin, enc))
         return false;
-    return m_pimpl->save_raw(filePath, bin);
+    if (m_pimpl->save_raw(filePath, bin))
+        return false;
+    encoding() = enc;
+    return true;
+}
+
+bool TextFiler::load(const tchar_t *filePath) {
+    return load(filePath, encoding());
+}
+
+bool TextFiler::save(const tchar_t *filePath) {
+    return save(filePath, encoding());
 }
 
 ENCODING& TextFiler::encoding() {
