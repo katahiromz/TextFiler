@@ -20,6 +20,22 @@
 
 namespace khmz {
 
+static inline bool is_known_binary_file(const tchar_t *filePath) {
+    const tchar_t *patterns[] = {
+        _T(".jpg"), _T(".jpeg"), _T(".png"), _T(".gif"), _T(".bmp"), _T(".tiff"),
+        _T(".exe"), _T(".dll"), _T(".ocx"), _T(".zip"), _T(".rar"), _T(".7z"),
+        _T(".pdf"), _T(".bin")
+    };
+    for (size_t iPat = 0; iPat < _countof(patterns); ++iPat) {
+        tstring_t fileName = filePath, ext = patterns[iPat];
+        if (fileName.size() >= ext.size() &&
+            _tcsicmp(fileName.c_str() + fileName.size() - ext.size(), ext.c_str()) == 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
 //////////////////////////////////////////////////////////////////////////
 // TextFiler_impl
 
@@ -95,7 +111,12 @@ bool TextFiler_impl::_save_raw_inner(const tchar_t *filePath, const binary_t& ra
     return ok;
 }
 
-ENCODING TextFiler_impl::detect_encoding(const void *ptr, size_t size) {
+ENCODING TextFiler_impl::detect_encoding(const tchar_t *filePath, const void *ptr, size_t size) {
+    if (filePath) {
+        if (is_known_binary_file(filePath))
+            return ENCODING_BINARY;
+    }
+
     if (!size)
         return ENCODING_ASCII;
 

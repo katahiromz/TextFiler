@@ -32,7 +32,7 @@ bool TextFiler::load(const tchar_t *filePath) {
         text().clear();
         return false;
     }
-    ENCODING enc = m_pimpl->detect_encoding(bin.c_str(), bin.size());
+    ENCODING enc = m_pimpl->detect_encoding(filePath, bin.c_str(), bin.size());
     if (!m_pimpl->_bin_to_text(bin, text(), enc))
         return false;
     encoding() = enc;

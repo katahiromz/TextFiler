@@ -17,7 +17,7 @@ namespace khmz {
 
         static bool load_raw(const tchar_t *filePath, binary_t& raw);
         static bool save_raw(const tchar_t *filePath, const binary_t& raw);
-        static ENCODING detect_encoding(const void *ptr, size_t size);
+        static ENCODING detect_encoding(const tchar_t *filePath, const void *ptr, size_t size);
         static bool is_utf8_valid(const void *ptr, size_t size);
         static bool _load_raw_inner(const tchar_t *filePath, binary_t& raw);
         static bool _save_raw_inner(const tchar_t *filePath, const binary_t& raw);

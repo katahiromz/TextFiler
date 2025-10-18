@@ -82,7 +82,7 @@ int main() {
             std::cerr << "load_raw failed for binary test\n";
             return 10;
         }
-        ENCODING enc = TextFiler_impl::detect_encoding(raw.c_str(), raw.size());
+        ENCODING enc = TextFiler_impl::detect_encoding(NULL, raw.c_str(), raw.size());
         if (enc != ENCODING_BINARY) {
             std::cerr << "expected binary encoding, got: " << enc << "\n";
             return 11;

@@ -85,7 +85,7 @@ int main()
             std::wcerr << L"load_raw failed for binary test\n";
             return 10;
         }
-        ENCODING enc = TextFiler_impl::detect_encoding(raw.c_str(), raw.size());
+        ENCODING enc = TextFiler_impl::detect_encoding(NULL, raw.c_str(), raw.size());
         if (enc != ENCODING_BINARY) {
             std::wcerr << L"expected binary encoding, got: " << enc << L"\n";
             return 11;

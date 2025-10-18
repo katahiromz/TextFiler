@@ -36,3 +36,6 @@ a.*
 lib*.a
 *.dll
 Testing/
+
+test_utf16_le.bin
+test_utf8_bom.txt
