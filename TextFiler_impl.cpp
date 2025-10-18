@@ -173,16 +173,14 @@ static void swap_bytes_u16_inplace(uint16_t *ptr, size_t len) {
 /* Implementations of conversion helpers */
 
 // binary-to-wide
-static bool b_to_w(const binary_t& bin, std::wstring& text, ENCODING encoding) {
+static bool b_to_w(const binary_t& bin, std::wstring& text, ENCODING enc) {
     text.clear();
     size_t size = bin.size();
     const byte_t *ptr = (const byte_t*)(bin.data());
 
-    ENCODING enc = encoding;
-
 #ifdef _WIN32
     if (enc == ENCODING_BINARY)
-        encoding = c_default_encoding;
+        enc = c_default_encoding;
 
     if (enc == ENCODING_UTF8_WITH_BOM) {
         if (size >= 3) {
@@ -384,14 +382,14 @@ static bool b_to_w(const binary_t& bin, std::wstring& text, ENCODING encoding) {
 }
 
 // binary-to-narrow
-static bool b_to_a(const binary_t& bin, std::string& text, ENCODING& encoding) {
+static bool b_to_a(const binary_t& bin, std::string& text, ENCODING enc) {
     text.clear();
     size_t size = bin.size();
     const byte_t *ptr = (const byte_t*)(bin.data());
-    ENCODING enc = encoding;
 
 #ifdef _WIN32
-    if (enc == ENCODING_BINARY) return false;
+    if (enc == ENCODING_BINARY)
+        enc = c_default_encoding;
 
     if (enc == ENCODING_UTF8_WITH_BOM) {
         if (size >= 3) {
@@ -849,7 +847,7 @@ ENCODING TextFiler_impl::detect_encoding(const void *ptr, size_t size) {
     return ENCODING_ANSI;
 }
 
-bool TextFiler_impl::_bin_to_text(const binary_t& bin, tstring_t& text, ENCODING& encoding) {
+bool TextFiler_impl::_bin_to_text(const binary_t& bin, tstring_t& text, ENCODING encoding) {
 #ifdef UNICODE
     return b_to_w(bin, text, encoding);
 #else
