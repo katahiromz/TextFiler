@@ -1,4 +1,6 @@
 // TextFiler.h
+// Author: katahiromz
+// License: MIT
 #pragma once
 
 #include <stdio.h>

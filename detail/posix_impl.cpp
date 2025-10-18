@@ -1,3 +1,6 @@
+// posix_impl.cpp
+// Author: katahiromz
+// License: MIT
 #include <stddef.h>
 #include <stdint.h>
 #include "../TextFiler.h"

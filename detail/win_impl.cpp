@@ -1,3 +1,6 @@
+// win_impl.cpp
+// Author: katahiromz
+// License: MIT
 #include <windows.h>
 #include <stddef.h>
 #include <stdint.h>

@@ -1,4 +1,7 @@
 // TextFiler_impl.h
+// Author: katahiromz
+// License: MIT
+
 #pragma once
 
 #include "tstring.h"

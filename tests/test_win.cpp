@@ -1,3 +1,6 @@
+// test_win.cpp
+// Author: katahiromz
+// License: MIT
 #include "../TextFiler.h"
 #include <windows.h>
 #include <wchar.h>

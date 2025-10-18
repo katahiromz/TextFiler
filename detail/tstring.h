@@ -1,4 +1,6 @@
 // tstring.h
+// Author: katahiromz
+// License: MIT
 #pragma once
 
 #include <string>

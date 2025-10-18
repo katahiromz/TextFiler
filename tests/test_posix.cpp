@@ -1,3 +1,6 @@
+// test_posix.cpp
+// Author: katahiromz
+// License: MIT
 #include <iostream>
 #include <cstdio>
 #include <string>

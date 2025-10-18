@@ -1,4 +1,6 @@
 // TextFiler_impl.cpp
+// Author: katahiromz
+// License: MIT
 #include "../TextFiler.h"
 #include "TextFiler_impl.h"
 #include "tstring.h"
