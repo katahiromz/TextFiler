@@ -4,7 +4,7 @@
 #pragma once
 
 #include <string>
-#include <stdint.h>
+#include "pstdint.h"
 
 bool is_system_little_endian();
 bool utf8_validate(const char *ptr, size_t size);

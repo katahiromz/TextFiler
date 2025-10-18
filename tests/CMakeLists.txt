@@ -2,7 +2,7 @@
 
 if(WIN32)
     add_executable(test_win test_win.cpp)
-    target_compile_definitions(test_win PRIVATE UNICODE _UNICODE NO_OLDNAMES)
+    target_compile_definitions(test_win PRIVATE UNICODE _UNICODE)
     target_include_directories(test_win PRIVATE ..)
     target_link_libraries(test_win PRIVATE libTextFiler)
 

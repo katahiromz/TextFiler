@@ -31,12 +31,16 @@ if(WIN32)
     endif()
 endif()
 
+if(WIN32)
+    add_definitions(-D_CRT_SECURE_NO_WARNINGS -DNO_OLDNAMES)
+endif()
+
 ##############################################################################
 
 # libTextFiler.a
 if(WIN32)
     add_library(libTextFiler STATIC TextFiler.cpp detail/TextFiler_impl.cpp detail/win_impl.cpp)
-    target_compile_definitions(libTextFiler PRIVATE UNICODE _UNICODE NO_OLDNAMES)
+    target_compile_definitions(libTextFiler PRIVATE UNICODE _UNICODE)
 else()
     add_library(libTextFiler STATIC TextFiler.cpp detail/TextFiler_impl.cpp detail/posix_impl.cpp)
     target_compile_definitions(libTextFiler PRIVATE)

@@ -3,7 +3,7 @@
 // License: MIT
 #include <windows.h>
 #include <stddef.h>
-#include <stdint.h>
+#include "pstdint.h"
 #include "win_impl.h"
 
 namespace khmz {
@@ -98,7 +98,9 @@ bool text_to_bin_on_win(const std::wstring& text, binary_t& bin, ENCODING enc) {
         } catch (...) { return false; }
         size_t pos = 0;
         if (add) {
-            bin[0] = 0xEF; bin[1] = 0xBB; bin[2] = 0xBF;
+            bin[0] = (byte_t)0xEF;
+            bin[1] = (byte_t)0xBB; 
+            bin[2] = (byte_t)0xBF;
             pos = 3;
         }
         if (utf8len > 0)
@@ -116,9 +118,11 @@ bool text_to_bin_on_win(const std::wstring& text, binary_t& bin, ENCODING enc) {
         size_t pos = 0;
         if (add) {
             if (enc == ENCODING_UTF16_LE_WITH_BOM) {
-                bin[0] = 0xFF; bin[1] = 0xFE;
+                bin[0] = (byte_t)0xFF;
+                bin[1] = (byte_t)0xFE;
             } else {
-                bin[0] = 0xFE; bin[1] = 0xFF;
+                bin[0] = (byte_t)0xFE; 
+                bin[1] = (byte_t)0xFF;
             }
             pos = 2;
         }

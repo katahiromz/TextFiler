@@ -4,11 +4,11 @@
 #include "../TextFiler.h"
 #include "TextFiler_impl.h"
 #include "../tstring.h"
+#include "pstdint.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <assert.h>
 #include <vector>
-#include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
 

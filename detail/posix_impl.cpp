@@ -2,7 +2,7 @@
 // Author: katahiromz
 // License: MIT
 #include <stddef.h>
-#include <stdint.h>
+#include "pstdint.h"
 #include "../TextFiler.h"
 
 bool is_system_little_endian() {
