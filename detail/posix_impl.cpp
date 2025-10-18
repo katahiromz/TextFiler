@@ -2,8 +2,11 @@
 // Author: katahiromz
 // License: MIT
 #include <stddef.h>
+#include <vector>
 #include "pstdint.h"
 #include "../TextFiler.h"
+
+namespace khmz {
 
 bool is_system_little_endian() {
     uint16_t v = 1;
@@ -243,3 +246,5 @@ bool text_to_bin_on_posix(const std::string& text, binary_t& bin, ENCODING enc) 
     }
     return false;
 }
+
+} // namespace khmz
