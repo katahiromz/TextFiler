@@ -10,6 +10,11 @@ project(TextFiler CXX)
 # enable CTest
 enable_testing()
 
+# set output directory (build/)
+set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/build)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
+set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
+
 if(WIN32)
     # we don't want runtime DLLs
     if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")

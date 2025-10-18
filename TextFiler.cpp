@@ -137,7 +137,7 @@ bool is_known_binary_file(const tchar_t *filePath) {
     const tchar_t *patterns[] = {
         _T(".jpg"), _T(".jpeg"), _T(".png"), _T(".gif"), _T(".bmp"), _T(".tiff"),
         _T(".exe"), _T(".dll"), _T(".ocx"), _T(".zip"), _T(".rar"), _T(".7z"),
-        _T(".pdf"), _T(".bin")
+        _T(".pdf")
     };
     const tstring_t fileName = filePath;
     for (size_t iPat = 0; iPat < _countof(patterns); ++iPat) {
