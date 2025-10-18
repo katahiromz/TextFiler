@@ -4,7 +4,7 @@
 #pragma once
 
 #include <stdio.h>
-#include "detail/tstring.h"
+#include "tstring.h"
 
 namespace khmz {
     struct TextFiler_impl;

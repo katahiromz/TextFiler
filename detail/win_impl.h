@@ -5,7 +5,7 @@
 
 #include <string>
 #include <stdint.h>
-#include "tstring.h"
+#include "../tstring.h"
 #include "../TextFiler.h"
 
 namespace khmz {

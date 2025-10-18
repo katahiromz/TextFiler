@@ -3,7 +3,7 @@
 // License: MIT
 #include "../TextFiler.h"
 #include "TextFiler_impl.h"
-#include "tstring.h"
+#include "../tstring.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <assert.h>
