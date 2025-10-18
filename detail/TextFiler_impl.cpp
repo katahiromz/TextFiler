@@ -26,8 +26,9 @@ static inline bool is_known_binary_file(const tchar_t *filePath) {
         _T(".exe"), _T(".dll"), _T(".ocx"), _T(".zip"), _T(".rar"), _T(".7z"),
         _T(".pdf"), _T(".bin")
     };
+    const tstring_t fileName = filePath;
     for (size_t iPat = 0; iPat < _countof(patterns); ++iPat) {
-        tstring_t fileName = filePath, ext = patterns[iPat];
+        const tstring_t ext = patterns[iPat];
         if (fileName.size() >= ext.size() &&
             _tcsicmp(fileName.c_str() + fileName.size() - ext.size(), ext.c_str()) == 0) {
             return true;
