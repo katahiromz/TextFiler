@@ -2,6 +2,7 @@
 // Author: katahiromz
 // License: MIT
 #include "posix_impl.h"
+#include <string.h> // memcpy
 
 namespace khmz {
 
