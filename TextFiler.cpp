@@ -22,9 +22,6 @@ TextFiler::~TextFiler() {
       tstring_t& TextFiler::text()       { return m_pimpl->m_text; }
 const tstring_t& TextFiler::text() const { return m_pimpl->m_text; }
 
-void TextFiler::reserve(size_t size) {
-    m_pimpl->m_text.reserve(size);
-}
 void TextFiler::clear() {
     m_pimpl->m_text.clear();
 }

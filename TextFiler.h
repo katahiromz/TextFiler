@@ -30,6 +30,12 @@ namespace khmz {
         TextFiler(const tstring_t& text);
         virtual ~TextFiler();
 
+        bool load(const tchar_t *filePath);
+        bool save(const tchar_t *filePath);
+
+              tstring_t& text();
+        const tstring_t& text() const;
+
               ENCODING& encoding();
         const ENCODING& encoding() const;
         bool is_utf8() const;
@@ -38,12 +44,6 @@ namespace khmz {
         bool is_binary() const;
         bool is_ascii() const;
 
-        bool load(const tchar_t *filePath);
-        bool save(const tchar_t *filePath);
-
-              tstring_t& text();
-        const tstring_t& text() const;
-        void reserve(size_t size);
         void clear();
         void remove_bom();
 

@@ -145,7 +145,7 @@ bool utf8_to_u16(const char *ptr, size_t size, std::vector<uint16_t>& out) {
 bool bin_to_text_on_posix(const binary_t& bin, std::string& text, ENCODING enc) {
     text.clear();
     size_t size = bin.size();
-    const byte_t *ptr = (const byte_t*)(bin.data());
+    const byte_t *ptr = (const byte_t*)bin.c_str();
 
     // POSIX
     if (enc == ENCODING_BINARY)
@@ -201,7 +201,7 @@ bool text_to_bin_on_posix(const std::string& text, binary_t& bin, ENCODING enc) 
             bin.resize(add + text.size());
         } catch (...) { return false; }
         if (add) { bin[0]=0xEF; bin[1]=0xBB; bin[2]=0xBF; }
-        if (!text.empty()) memcpy(&bin[add], text.data(), text.size());
+        if (!text.empty()) memcpy(&bin[add], text.c_str(), text.size());
         return true;
     } else if (enc == ENCODING_UTF16_LE_WITH_BOM || enc == ENCODING_UTF16_LE_WITHOUT_BOM ||
                enc == ENCODING_UTF16_BE_WITH_BOM || enc == ENCODING_UTF16_BE_WITHOUT_BOM) {

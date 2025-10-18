@@ -9,7 +9,7 @@ namespace khmz {
 bool bin_to_text_on_win(const binary_t& bin, std::wstring& text, ENCODING enc) {
     text.clear();
     size_t size = bin.size();
-    const byte_t *ptr = (const byte_t*)(bin.data());
+    const byte_t *ptr = (const byte_t*)bin.c_str();
 
     if (enc == ENCODING_BINARY)
         enc = ENCODING_DEFAULT;
@@ -121,7 +121,7 @@ bool text_to_bin_on_win(const std::wstring& text, binary_t& bin, ENCODING enc) {
         }
         if ((enc == ENCODING_UTF16_LE_WITH_BOM) || (enc == ENCODING_UTF16_LE_WITHOUT_BOM)) {
             // copy raw bytes
-            memcpy(&bin[pos], text.data(), bytes);
+            memcpy(&bin[pos], text.c_str(), bytes);
             return true;
         } else {
             // BE: need to swap bytes
