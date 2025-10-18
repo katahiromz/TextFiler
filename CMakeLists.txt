@@ -41,6 +41,7 @@ else()
     add_library(libTextFiler STATIC TextFiler.cpp detail/TextFiler_impl.cpp detail/posix_impl.cpp)
     target_compile_definitions(libTextFiler PRIVATE)
 endif()
+set_target_properties(libTextFiler PROPERTIES PREFIX "")
 
 # add tests
 add_subdirectory(tests)
