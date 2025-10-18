@@ -43,9 +43,7 @@ namespace khmz {
         bool is_ascii() const;
 
         bool load(const tchar_t *filePath);
-        bool load(const tchar_t *filePath, ENCODING& enc);
         bool save(const tchar_t *filePath);
-        bool save(const tchar_t *filePath, ENCODING enc);
 
               tstring_t& text();
         const tstring_t& text() const;
