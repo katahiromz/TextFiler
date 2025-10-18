@@ -7,6 +7,9 @@ cmake_minimum_required(VERSION 3.10)
 # project name and languages
 project(TextFiler CXX)
 
+# enable CTest
+enable_testing()
+
 if(WIN32)
     # we don't want runtime DLLs
     if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
@@ -40,3 +43,6 @@ else()
 endif()
 
 ##############################################################################
+
+# add tests
+add_subdirectory(tests)
