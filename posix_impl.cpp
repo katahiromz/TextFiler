@@ -11,7 +11,7 @@ bool is_system_little_endian() {
 bool utf8_validate(const char *ptr, size_t size) {
     size_t i = 0;
     while (i < size) {
-        unsigned char c = (unsigned char)ptr[i];
+        byte_t c = (byte_t)ptr[i];
         if (c <= 0x7F) {
             // ASCII
             i++;
@@ -19,7 +19,7 @@ bool utf8_validate(const char *ptr, size_t size) {
         } else if ((c >> 5) == 0x6) {
             // 2-byte
             if (i + 1 >= size) return false;
-            unsigned char c1 = (unsigned char)ptr[i+1];
+            byte_t c1 = (byte_t)ptr[i+1];
             if ((c1 >> 6) != 0x2) return false;
             uint32_t code = ((c & 0x1F) << 6) | (c1 & 0x3F);
             if (code < 0x80) return false; // overlong
@@ -27,8 +27,8 @@ bool utf8_validate(const char *ptr, size_t size) {
         } else if ((c >> 4) == 0xE) {
             // 3-byte
             if (i + 2 >= size) return false;
-            unsigned char c1 = (unsigned char)ptr[i+1];
-            unsigned char c2 = (unsigned char)ptr[i+2];
+            byte_t c1 = (byte_t)ptr[i+1];
+            byte_t c2 = (byte_t)ptr[i+2];
             if ((c1 >> 6) != 0x2 || (c2 >> 6) != 0x2) return false;
             uint32_t code = ((c & 0x0F) << 12) | ((c1 & 0x3F) << 6) | (c2 & 0x3F);
             if (code < 0x800) return false; // overlong
@@ -38,9 +38,9 @@ bool utf8_validate(const char *ptr, size_t size) {
         } else if ((c >> 3) == 0x1E) {
             // 4-byte
             if (i + 3 >= size) return false;
-            unsigned char c1 = (unsigned char)ptr[i+1];
-            unsigned char c2 = (unsigned char)ptr[i+2];
-            unsigned char c3 = (unsigned char)ptr[i+3];
+            byte_t c1 = (byte_t)ptr[i+1];
+            byte_t c2 = (byte_t)ptr[i+2];
+            byte_t c3 = (byte_t)ptr[i+3];
             if ((c1 >> 6) != 0x2 || (c2 >> 6) != 0x2 || (c3 >> 6) != 0x2) return false;
             uint32_t code = ((c & 0x07) << 18) | ((c1 & 0x3F) << 12) | ((c2 & 0x3F) << 6) | (c3 & 0x3F);
             if (code < 0x10000 || code > 0x10FFFF) return false; // overlong or out of range
@@ -95,29 +95,29 @@ bool utf8_to_u16(const char *ptr, size_t size, std::vector<uint16_t>& out) {
     out.clear();
     size_t i = 0;
     while (i < size) {
-        unsigned char c = (unsigned char)ptr[i];
+        byte_t c = (byte_t)ptr[i];
         uint32_t code = 0;
         if (c <= 0x7F) {
             code = c;
             ++i;
         } else if ((c >> 5) == 0x6) {
             if (i + 1 >= size) return false;
-            unsigned char c1 = (unsigned char)ptr[i+1];
+            byte_t c1 = (byte_t)ptr[i+1];
             if ((c1 >> 6) != 0x2) return false;
             code = ((c & 0x1F) << 6) | (c1 & 0x3F);
             i += 2;
         } else if ((c >> 4) == 0xE) {
             if (i + 2 >= size) return false;
-            unsigned char c1 = (unsigned char)ptr[i+1];
-            unsigned char c2 = (unsigned char)ptr[i+2];
+            byte_t c1 = (byte_t)ptr[i+1];
+            byte_t c2 = (byte_t)ptr[i+2];
             if ((c1 >> 6) != 0x2 || (c2 >> 6) != 0x2) return false;
             code = ((c & 0x0F) << 12) | ((c1 & 0x3F) << 6) | (c2 & 0x3F);
             i += 3;
         } else if ((c >> 3) == 0x1E) {
             if (i + 3 >= size) return false;
-            unsigned char c1 = (unsigned char)ptr[i+1];
-            unsigned char c2 = (unsigned char)ptr[i+2];
-            unsigned char c3 = (unsigned char)ptr[i+3];
+            byte_t c1 = (byte_t)ptr[i+1];
+            byte_t c2 = (byte_t)ptr[i+2];
+            byte_t c3 = (byte_t)ptr[i+3];
             if ((c1 >> 6) != 0x2 || (c2 >> 6) != 0x2 || (c3 >> 6) != 0x2) return false;
             code = ((c & 0x07) << 18) | ((c1 & 0x3F) << 12) | ((c2 & 0x3F) << 6) | (c3 & 0x3F);
             i += 4;
