@@ -3,7 +3,7 @@
 #include <string>
 #include <stdint.h>
 #include "tstring.h"
-#include "TextFiler.h"
+#include "../TextFiler.h"
 
 namespace khmz {
     bool bin_to_text_on_win(const binary_t& bin, std::wstring& text, ENCODING enc);

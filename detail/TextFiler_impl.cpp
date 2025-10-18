@@ -1,5 +1,5 @@
 // TextFiler_impl.cpp
-#include "TextFiler.h"
+#include "../TextFiler.h"
 #include "TextFiler_impl.h"
 #include "tstring.h"
 #include <sys/types.h>

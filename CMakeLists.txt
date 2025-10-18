@@ -35,14 +35,12 @@ endif()
 
 # libTextFiler.a
 if(WIN32)
-    add_library(libTextFiler STATIC TextFiler.cpp TextFiler_impl.cpp win_impl.cpp)
+    add_library(libTextFiler STATIC TextFiler.cpp detail/TextFiler_impl.cpp detail/win_impl.cpp)
     target_compile_definitions(libTextFiler PRIVATE UNICODE _UNICODE NO_OLDNAMES)
 else()
-    add_library(libTextFiler STATIC TextFiler.cpp TextFiler_impl.cpp posix_impl.cpp)
+    add_library(libTextFiler STATIC TextFiler.cpp detail/TextFiler_impl.cpp detail/posix_impl.cpp)
     target_compile_definitions(libTextFiler PRIVATE)
 endif()
-
-##############################################################################
 
 # add tests
 add_subdirectory(tests)

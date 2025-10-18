@@ -2,8 +2,8 @@
 #include <cstdio>
 #include <string>
 
-#include "TextFiler.h"
-#include "TextFiler_impl.h"
+#include "../TextFiler.h"
+#include "../TextFiler_impl.h"
 
 using namespace khmz;
 

@@ -2,7 +2,7 @@
 #pragma once
 
 #include <stdio.h>
-#include "tstring.h"
+#include "detail/tstring.h"
 
 namespace khmz {
     struct TextFiler_impl;

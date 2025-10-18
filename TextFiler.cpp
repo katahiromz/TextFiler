@@ -1,6 +1,6 @@
 // TextFiler.cpp
 #include "TextFiler.h"
-#include "TextFiler_impl.h"
+#include "detail/TextFiler_impl.h"
 
 namespace khmz {
 

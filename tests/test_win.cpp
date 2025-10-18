@@ -1,5 +1,5 @@
-#include "TextFiler.h"
-#include "TextFiler_impl.h"
+#include "../TextFiler.h"
+#include "../detail/TextFiler_impl.h"
 #include <windows.h>
 #include <wchar.h>
 #include <stdio.h>
