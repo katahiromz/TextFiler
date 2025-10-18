@@ -3,8 +3,14 @@
 // License: MIT
 #pragma once
 
+#include <stddef.h>
 #include <string>
+#include <vector>
 #include "pstdint.h"
+#include "../tstring.h"
+#include "../TextFiler.h"
+
+namespace khmz {
 
 bool is_system_little_endian();
 bool utf8_validate(const char *ptr, size_t size);
@@ -13,3 +19,5 @@ bool utf8_to_u16(const char *ptr, size_t size, std::vector<uint16_t>& out);
 
 bool bin_to_text_on_posix(const binary_t& bin, std::string& text, ENCODING enc);
 bool text_to_bin_on_posix(const std::string& text, binary_t& bin, ENCODING enc);
+
+} // namespace khmz
