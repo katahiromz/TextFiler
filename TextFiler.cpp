@@ -116,6 +116,9 @@ void TextFiler::remove_bom() {
     }
 }
 
+//////////////////////////////////////////////////////////////////////////
+// Useful functions
+
 bool load_raw(const tchar_t *filePath, binary_t& raw) {
     if (!TextFiler_impl::_load_raw(filePath, raw)) {
         raw.clear();
