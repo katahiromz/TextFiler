@@ -6,6 +6,9 @@
 
 #ifdef _WIN32
     #include <tchar.h>
+    #ifndef UNICODE
+        #error Please #define UNICODE.
+    #endif
 #else
     #include <stddef.h>
 #endif

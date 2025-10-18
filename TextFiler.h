@@ -1,11 +1,6 @@
 // TextFiler.h
 #pragma once
 
-//#ifdef _WIN32
-//    #ifndef _INC_WINDOWS
-//        #include <windows.h>
-//    #endif
-//#endif
 #include <stdio.h>
 #include "tstring.h"
 
@@ -26,8 +21,9 @@ namespace khmz {
         ENCODING_UTF8 = ENCODING_UTF8_WITHOUT_BOM,
         ENCODING_UTF16_LE = ENCODING_UTF16_LE_WITH_BOM,
         ENCODING_UTF16_BE = ENCODING_UTF16_BE_WITH_BOM,
+        ENCODING_DEFAULT = ENCODING_UTF8,
     };
-    
+
     class TextFiler {
     public:
         TextFiler();

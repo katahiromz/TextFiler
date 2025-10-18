@@ -31,10 +31,12 @@ endif()
 ##############################################################################
 
 # libTextFiler.a
-add_library(libTextFiler STATIC TextFiler.cpp TextFiler_impl.cpp)
-
 if(WIN32)
+    add_library(libTextFiler STATIC TextFiler.cpp TextFiler_impl.cpp win_impl.cpp)
     target_compile_definitions(libTextFiler PRIVATE UNICODE _UNICODE NO_OLDNAMES)
+else()
+    add_library(libTextFiler STATIC TextFiler.cpp TextFiler_impl.cpp posix_impl.cpp)
+    target_compile_definitions(libTextFiler PRIVATE)
 endif()
 
 ##############################################################################
