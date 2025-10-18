@@ -14,27 +14,30 @@ bool bin_to_text_on_win(const binary_t& bin, std::wstring& text, ENCODING enc) {
     size_t size = bin.size();
     const byte_t *ptr = (const byte_t*)bin.c_str();
 
-    if (enc == ENCODING_BINARY)
+    bool check = true;
+    if (enc == ENCODING_BINARY) {
         enc = ENCODING_DEFAULT;
+        check = false;
+    }
 
     if (enc == ENCODING_UTF8_WITH_BOM) {
         if (size >= 3) {
             const char *p = (const char *)(ptr + 3);
             int len = (int)size - 3;
-            int wideLen = MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, p, len, NULL, 0);
+            int wideLen = MultiByteToWideChar(CP_UTF8, (check ? MB_ERR_INVALID_CHARS : 0), p, len, NULL, 0);
             if (wideLen <= 0) return false;
             text.resize(wideLen);
-            MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, p, len, &text[0], wideLen);
+            MultiByteToWideChar(CP_UTF8, (check ? MB_ERR_INVALID_CHARS : 0), p, len, &text[0], wideLen);
             return true;
         }
         return true;
     } else if (enc == ENCODING_UTF8_WITHOUT_BOM) {
         const char *p = (const char *)ptr;
         int len = (int)size;
-        int wideLen = MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, p, len, NULL, 0);
+        int wideLen = MultiByteToWideChar(CP_UTF8, (check ? MB_ERR_INVALID_CHARS : 0), p, len, NULL, 0);
         if (wideLen <= 0) return false;
         text.resize(wideLen);
-        MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, p, len, &text[0], wideLen);
+        MultiByteToWideChar(CP_UTF8, (check ? MB_ERR_INVALID_CHARS : 0), p, len, &text[0], wideLen);
         return true;
     } else if (enc == ENCODING_UTF16_LE_WITH_BOM || enc == ENCODING_UTF16_LE_WITHOUT_BOM ||
                enc == ENCODING_UTF16_BE_WITH_BOM || enc == ENCODING_UTF16_BE_WITHOUT_BOM) {
@@ -67,7 +70,7 @@ bool bin_to_text_on_win(const binary_t& bin, std::wstring& text, ENCODING enc) {
         int len = (int)size;
         // treat ASCII as CP_UTF8 for safety in many cases? but for ANSI we should use CP_ACP
         UINT codePage = (enc == ENCODING_ANSI) ? CP_ACP : CP_UTF8;
-        int wideLen = MultiByteToWideChar(codePage, MB_ERR_INVALID_CHARS, p, len, NULL, 0);
+        int wideLen = MultiByteToWideChar(codePage, (check ? MB_ERR_INVALID_CHARS : 0), p, len, NULL, 0);
         if (wideLen <= 0 && enc == ENCODING_ANSI) {
             // Fallback: try without MB_ERR_INVALID_CHARS
             wideLen = MultiByteToWideChar(codePage, 0, p, len, NULL, 0);
@@ -79,7 +82,7 @@ bool bin_to_text_on_win(const binary_t& bin, std::wstring& text, ENCODING enc) {
             return false;
         }
         text.resize(wideLen);
-        MultiByteToWideChar(codePage, MB_ERR_INVALID_CHARS, p, len, &text[0], wideLen);
+        MultiByteToWideChar(codePage, (check ? MB_ERR_INVALID_CHARS : 0), p, len, &text[0], wideLen);
         return true;
     }
     return false;

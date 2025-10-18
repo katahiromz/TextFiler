@@ -1,4 +1,4 @@
-// test_win.cpp
+﻿// test_win.cpp
 // Author: katahiromz
 // License: MIT
 #include "../TextFiler.h"
