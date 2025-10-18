@@ -35,12 +35,12 @@ bool TextFiler::load(const tchar_t *filePath) {
         text().clear();
         return false;
     }
-    return m_pimpl->bin_to_text(bin, text(), encoding());
+    return m_pimpl->_bin_to_text(bin, text(), encoding());
 }
 
 bool TextFiler::save(const tchar_t *filePath) const {
     binary_t bin;
-    if (!m_pimpl->text_to_bin(text(), bin, encoding()))
+    if (!m_pimpl->_text_to_bin(text(), bin, encoding()))
         return false;
     return m_pimpl->save_raw(filePath, bin);
 }

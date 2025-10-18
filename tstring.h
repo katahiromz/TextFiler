@@ -7,7 +7,7 @@
 #ifdef _WIN32
     #include <tchar.h>
 #else
-    // TODO:
+    #include <stddef.h>
 #endif
 
 namespace khmz {
