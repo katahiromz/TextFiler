@@ -24,6 +24,12 @@ namespace khmz {
         ENCODING_DEFAULT = ENCODING_UTF8,
     };
 
+    // generic helper functions
+    bool load_raw(const tchar_t *filePath, binary_t& raw);
+    bool save_raw(const tchar_t *filePath, const binary_t& raw);
+    bool is_utf8_valid(const void *ptr, size_t size);
+    ENCODING detect_encoding(const tchar_t *filePath, const void *ptr, size_t size);
+
     class TextFiler {
     public:
         TextFiler();

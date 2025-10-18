@@ -20,23 +20,6 @@
 
 namespace khmz {
 
-static inline bool is_known_binary_file(const tchar_t *filePath) {
-    const tchar_t *patterns[] = {
-        _T(".jpg"), _T(".jpeg"), _T(".png"), _T(".gif"), _T(".bmp"), _T(".tiff"),
-        _T(".exe"), _T(".dll"), _T(".ocx"), _T(".zip"), _T(".rar"), _T(".7z"),
-        _T(".pdf"), _T(".bin")
-    };
-    const tstring_t fileName = filePath;
-    for (size_t iPat = 0; iPat < _countof(patterns); ++iPat) {
-        const tstring_t ext = patterns[iPat];
-        if (fileName.size() >= ext.size() &&
-            _tcsicmp(fileName.c_str() + fileName.size() - ext.size(), ext.c_str()) == 0) {
-            return true;
-        }
-    }
-    return false;
-}
-
 //////////////////////////////////////////////////////////////////////////
 // TextFiler_impl
 
@@ -59,21 +42,7 @@ TextFiler_impl::TextFiler_impl(TextFiler *self, const tstring_t& text) {
 
 TextFiler_impl::~TextFiler_impl() { }
 
-bool TextFiler_impl::load_raw(const tchar_t *filePath, binary_t& raw) {
-    if (!_load_raw_inner(filePath, raw)) {
-        raw.clear();
-        return false;
-    }
-    return true;
-}
-
-bool TextFiler_impl::save_raw(const tchar_t *filePath, const binary_t& raw) {
-    if (!_save_raw_inner(filePath, raw))
-        return false;
-    return true;
-}
-
-bool TextFiler_impl::_load_raw_inner(const tchar_t *filePath, binary_t& raw) {
+bool TextFiler_impl::_load_raw(const tchar_t *filePath, binary_t& raw) {
 #ifdef NO_OLDNAMES
     struct _stat st;
 #else
@@ -102,7 +71,7 @@ bool TextFiler_impl::_load_raw_inner(const tchar_t *filePath, binary_t& raw) {
     return ok;
 }
 
-bool TextFiler_impl::_save_raw_inner(const tchar_t *filePath, const binary_t& raw) {
+bool TextFiler_impl::_save_raw(const tchar_t *filePath, const binary_t& raw) {
     FILE *fout = _tfopen(filePath, _T("wb"));
     if (!fout)
         return false;
@@ -110,42 +79,6 @@ bool TextFiler_impl::_save_raw_inner(const tchar_t *filePath, const binary_t& ra
     bool ok = (fwrite(&raw[0], raw.size(), 1, fout) != 0);
     fclose(fout);
     return ok;
-}
-
-ENCODING TextFiler_impl::detect_encoding(const tchar_t *filePath, const void *ptr, size_t size) {
-    if (filePath) {
-        if (is_known_binary_file(filePath))
-            return ENCODING_BINARY;
-    }
-
-    if (!size)
-        return ENCODING_ASCII;
-
-    const byte_t *pb = reinterpret_cast<const byte_t *>(ptr);
-    if (size >= 2) {
-        if (pb[0] == 0xFF && pb[1] == 0xFE)
-            return ENCODING_UTF16_LE_WITH_BOM;
-        if (pb[0] == 0xFE && pb[1] == 0xFF)
-            return ENCODING_UTF16_BE_WITH_BOM;
-        if (size >= 3 && pb[0] == 0xEF && pb[1] == 0xBB && pb[2] == 0xBF)
-            return ENCODING_UTF8_WITH_BOM;
-    }
-
-    bool is_ascii = true;
-    for (size_t ib = 0; ib < size; ++ib) {
-        if (pb[ib] == 0)
-            return ENCODING_BINARY;
-        if (pb[ib] & 0x80)
-            is_ascii = false;
-    }
-
-    if (is_ascii)
-        return ENCODING_ASCII;
-
-    if (is_utf8_valid(pb, size))
-        return ENCODING_UTF8_WITHOUT_BOM;
-
-    return ENCODING_ANSI;
 }
 
 bool TextFiler_impl::_bin_to_text(const binary_t& bin, tstring_t& text, ENCODING enc) {
@@ -164,7 +97,7 @@ bool TextFiler_impl::_text_to_bin(const tstring_t& text, binary_t& bin, ENCODING
 #endif
 }
 
-bool TextFiler_impl::is_utf8_valid(const void *ptr, size_t size) {
+bool TextFiler_impl::_is_utf8_valid(const void *ptr, size_t size) {
 #ifdef _WIN32
     INT wideLen = MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, (char *)ptr, (INT)size, NULL, 0);
     return (wideLen > 0);
