@@ -108,4 +108,36 @@ bool TextFiler_impl::_is_utf8_valid(const void *ptr, size_t size) {
 #endif
 }
 
+bool TextFiler_impl::_make_dir(const tchar_t *dir) {
+#ifdef _WIN32
+    return CreateDirectoryW(dir, NULL) || GetLastError() == ERROR_ALREADY_EXISTS;
+#else
+    if (mkdir(dir))
+        return true;
+    struct stat st;
+    return (stat(path.c_str(), &st) == 0) && S_ISDIR(info.st_mode);
+#endif
+}
+
+bool TextFiler_impl::_make_dir_path(const tchar_t *dir) {
+    if (!dir || !dir[0])
+        return false;
+    if (_make_dir(dir))
+        return true;
+    tstring_t str = dir;
+#ifdef _WIN32
+    size_t pos = str.find_last_of(L"\\/");
+#else
+    size_t pos = str.find('/');
+#endif
+    if (pos == str.npos)
+        return false;
+    tstring_t parent = str.substr(0, pos);
+    if (parent.empty())
+        return false;
+    if (!_make_dir_path(parent.c_str()))
+        return false;
+    return _make_dir(dir);
+}
+
 } // namespace khmz

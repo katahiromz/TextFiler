@@ -190,4 +190,12 @@ ENCODING detect_encoding(const tchar_t *filePath, const void *ptr, size_t size) 
     return ENCODING_ANSI;
 }
 
+bool make_dir(const tchar_t *dir) {
+    return TextFiler_impl::_make_dir(dir);
+}
+
+bool make_dir_path(const tchar_t *dir) {
+    return TextFiler_impl::_make_dir_path(dir);
+}
+
 } // namespace khmz

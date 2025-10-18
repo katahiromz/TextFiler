@@ -23,5 +23,7 @@ namespace khmz {
         static bool _bin_to_text(const binary_t& bin, tstring_t& text, ENCODING enc);
         static bool _text_to_bin(const tstring_t& text, binary_t& bin, ENCODING enc);
         static bool _is_utf8_valid(const void *ptr, size_t size);
+        static bool _make_dir(const tchar_t *dir);
+        static bool _make_dir_path(const tchar_t *dir);
     };
 } // namespace khmz

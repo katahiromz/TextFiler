@@ -31,6 +31,8 @@ namespace khmz {
     bool save_raw(const tchar_t *filePath, const binary_t& raw);
     bool is_utf8_valid(const void *ptr, size_t size);
     ENCODING detect_encoding(const tchar_t *filePath, const void *ptr, size_t size);
+    bool make_dir(const tchar_t *dir);
+    bool make_dir_path(const tchar_t *dir);
 
     class TextFiler {
     public:
